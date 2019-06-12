@@ -6,6 +6,6 @@
   <license></license>
   <url>http://</url>
   <logo>http://</logo>
-  <depend package="base/cmake" />
+  <depend package="deployments/orogen/rover_deployments" />
   <depend package="drivers/orogen/platform_driver_pcan" />
 </package>
