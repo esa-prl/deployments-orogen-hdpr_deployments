@@ -1,0 +1,95 @@
+name "hdpr_deployments"
+
+using_task_library 'platform_driver_pcan'
+using_task_library 'joint_dispatcher'
+using_task_library 'locomotion_control'
+using_task_library 'wheelwalking_control'
+using_task_library 'locomotion_switcher'
+using_task_library 'controldev'
+using_task_library 'ptu_directedperception'
+using_task_library 'dsp1760'
+using_task_library 'temperature'
+using_task_library 'telemetry_telecommand'
+using_task_library 'autonav_interface'
+
+# Control
+using_task_library 'ptu_control'
+using_task_library 'motion_translator'
+using_task_library 'command_arbiter'
+using_task_library 'waypoint_navigation'
+using_task_library 'slippage_estimator'
+using_task_library 'fdir'
+
+# Processing
+using_task_library 'stereo'
+using_task_library 'pancam_panorama'
+using_task_library 'pancam_360'
+using_task_library 'viso2'
+using_task_library 'viso2_with_imu'
+using_task_library 'viso2_evaluation'
+using_task_library 'gps_heading'
+using_task_library 'shutter_controller'
+using_task_library 'hazard_detector'
+using_task_library 'dem_generation'
+using_task_library 'camera_trigger'
+using_task_library 'cartographer'
+using_task_library 'traversability'
+using_task_library 'path_planning'
+#using_task_library 'ga_slam'
+
+# Other
+#using_task_library 'transformer'
+#using_task_library 'ar_tracking'
+#using_task_library 'kinect2'
+#using_task_library 'image_preprocessing'
+#using_task_library 'projection'
+#using_task_library 'localization_frontend'
+#using_task_library 'odometry'
+using_task_library 'threed_odometry'
+#using_task_library 'motion_planning_libraries'
+#using_task_library 'traversability_explorer'
+#using_task_library 'traversability_loader'
+#using_task_library 'trajectory_helpers'
+using_task_library 'simulation_vrep'
+
+######################################################### Deployement definition
+
+# Rover general deployements
+deployment 'control' do
+    task("platform_driver_hdpr", "platform_driver::Hdpr")
+    task("locomotion_control", "locomotion_control::Task")
+    task("read_joint_dispatcher", "joint_dispatcher::Task")
+    task("command_joint_dispatcher", "joint_dispatcher::Task")
+    task("motion_translator", "motion_translator::Task")
+    task("joystick", "controldev::JoystickTask")
+    task("ptu_directedperception", "ptu_directedperception::Task")
+    task("ptu_control", "ptu_control::Task")
+    task("wheel_walking_control", "wheelwalking_control::Task")
+    task("locomotion_switcher", "locomotion_switcher::Task")
+    add_default_logger
+end
+
+deployment "unit_following" do
+    task("platform_driver_hdpr", "platform_driver::Hdpr").periodic(0.08)
+    task("locomotion_control", "locomotion_control::Task")
+    task("read_joint_dispatcher", "joint_dispatcher::Task")
+    task("command_joint_dispatcher", "joint_dispatcher::Task")
+    task("motion_translator", "motion_translator::Task")
+    task("ptu_directedperception", "ptu_directedperception::Task")
+    task("ptu_control", "ptu_control::Task")
+    task("joystick", "controldev::JoystickTask")
+    task("vicon", "vicon::Task").periodic(0.1)
+    task("waypoint_navigation", "waypoint_navigation::Task")
+    task("trajectoryGen", "waypoint_navigation::TrajectoryTest")
+    task("command_arbiter", "command_arbiter::Task")
+    add_default_logger
+end
+
+deployment "unit_odometry" do
+    task("imu_stim300", "imu_stim300::Task")
+    task("platform_driver_hdpr", "platform_driver::Hdpr")
+    task("read_joint_dispatcher", "joint_dispatcher::Task")
+    task("threed_odometry", "threed_odometry::Task")
+    add_default_logger
+end
+

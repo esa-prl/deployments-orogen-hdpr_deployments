@@ -1,0 +1,11 @@
+<package>
+  <description brief="hdpr deployments">
+  HDPR deployment set
+  </description>
+  <author>/</author>
+  <license></license>
+  <url>http://</url>
+  <logo>http://</logo>
+  <depend package="base/cmake" />
+  <depend package="drivers/orogen/platform_driver_pcan" />
+</package>
