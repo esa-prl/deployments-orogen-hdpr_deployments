@@ -1,5 +1,10 @@
 name "hdpr_deployments"
 
+# Sensors
+using_task_library 'imu_stim300'
+using_task_library 'vicon'
+
+# Drivers
 using_task_library 'platform_driver_pcan'
 using_task_library 'joint_dispatcher'
 using_task_library 'locomotion_control'
@@ -56,7 +61,7 @@ using_task_library 'simulation_vrep'
 
 # Rover general deployements
 deployment 'control' do
-    task("platform_driver_hdpr", "platform_driver::Hdpr")
+    task("platform_driver_hdpr", "platform_driver_pcan::Hdpr")
     task("locomotion_control", "locomotion_control::Task")
     task("read_joint_dispatcher", "joint_dispatcher::Task")
     task("command_joint_dispatcher", "joint_dispatcher::Task")
@@ -70,7 +75,7 @@ deployment 'control' do
 end
 
 deployment "unit_following" do
-    task("platform_driver_hdpr", "platform_driver::Hdpr").periodic(0.08)
+    task("platform_driver_hdpr", "platform_driver_pcan::Hdpr").periodic(0.08)
     task("locomotion_control", "locomotion_control::Task")
     task("read_joint_dispatcher", "joint_dispatcher::Task")
     task("command_joint_dispatcher", "joint_dispatcher::Task")
@@ -87,7 +92,7 @@ end
 
 deployment "unit_odometry" do
     task("imu_stim300", "imu_stim300::Task")
-    task("platform_driver_hdpr", "platform_driver::Hdpr")
+    task("platform_driver_hdpr", "platform_driver_pcan::Hdpr")
     task("read_joint_dispatcher", "joint_dispatcher::Task")
     task("threed_odometry", "threed_odometry::Task")
     add_default_logger
