@@ -14,7 +14,6 @@ using_task_library 'controldev'
 using_task_library 'ptu_directedperception'
 
 # Control
-using_task_library 'ptu_control'
 using_task_library 'motion_translator'
 using_task_library 'command_arbiter'
 using_task_library 'waypoint_navigation'
@@ -30,7 +29,6 @@ deployment 'control' do
     task("motion_translator", "motion_translator::Task")
     task("joystick", "controldev::JoystickTask")
     task("ptu_directedperception", "ptu_directedperception::Task")
-    task("ptu_control", "ptu_control::Task")
     task("wheel_walking_control", "wheelwalking_control::Task")
     task("locomotion_switcher", "locomotion_switcher::Task")
     add_default_logger
@@ -43,7 +41,6 @@ deployment "unit_following" do
     task("command_joint_dispatcher", "joint_dispatcher::Task")
     task("motion_translator", "motion_translator::Task")
     task("ptu_directedperception", "ptu_directedperception::Task")
-    task("ptu_control", "ptu_control::Task")
     task("joystick", "controldev::JoystickTask")
     task("vicon", "vicon::Task").periodic(0.1)
     task("waypoint_navigation", "waypoint_navigation::Task")
