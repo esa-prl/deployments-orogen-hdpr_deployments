@@ -8,8 +8,6 @@ using_task_library 'vicon'
 using_task_library 'platform_driver_pcan'
 using_task_library 'joint_dispatcher'
 using_task_library 'locomotion_control'
-using_task_library 'wheelwalking_control'
-using_task_library 'locomotion_switcher'
 using_task_library 'controldev'
 using_task_library 'ptu_directedperception'
 
@@ -29,8 +27,6 @@ deployment 'control' do
     task("motion_translator", "motion_translator::Task")
     task("joystick", "controldev::JoystickTask")
     task("ptu_directedperception", "ptu_directedperception::Task")
-    task("wheel_walking_control", "wheelwalking_control::Task")
-    task("locomotion_switcher", "locomotion_switcher::Task")
     add_default_logger
 end
 
