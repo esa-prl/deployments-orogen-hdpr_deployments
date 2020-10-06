@@ -8,4 +8,5 @@
   <logo>http://</logo>
   <depend package="deployments/orogen/rover_deployments" />
   <depend package="drivers/orogen/platform_driver_pcan" />
+  <depend package="drivers/orogen/ptu_directedperception" />
 </package>
